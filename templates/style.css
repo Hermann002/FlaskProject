@@ -1,0 +1,20 @@
+h1{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-top: 15%;
+    color: darkslategrey;
+}
+
+.btn{
+    height: 40px;
+    width: 120px;
+    color: #fff;
+    background-color: #003DFF;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 7px;
+    text-transform: uppercase;
+}

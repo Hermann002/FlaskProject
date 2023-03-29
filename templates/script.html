@@ -3,39 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Debuter le live</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1 style="text-align: center;
-            text-transform: uppercase;
-            font-weight: bold;
-            font-family: sans-serif;
-            margin-top: 15%;
-            color: darkslategrey;">Visualiser les videos</h1>
-        <form action="/liveStart/" style=" width: 100px;
+    <h1>formulaire d'inscription</h1>
+        <form action="#" method="post" style=" width: 100px;
             margin: auto;">
-            <input style="height: 40px;
-            width: 120px;
-            color: #fff;
-            background-color: #003DFF;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 7px;
-            text-transform: uppercase;" type="submit" value="Ouvrir" />
+            <label for="name">Nom du proprétaire :<input id="name" type="text" name="name"></label>
+            <label for="shop">Nom de la boutique :<input id="shop" type="text" name="shop"></label>
+            <label for="locat">Localisation :<input id="name" type="text" name="name"></label>
+            <label for="email">Email :<input id="email" type="email" name="email"></label>
+            <input class="btn" type="submit" value="Ouvrir" />
         </form>
-        <form action="/liveStop/" style=" width: 100px;
-            margin: auto;">
-            <input style="height: 40px;
-            margin-top: 10px;
-            width: 120px;
-            color: #fff;
-            background-color: #003DFF;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 7px;
-            text-transform: uppercase;" type="submit" value="fermer" />
-        </form>
-        <p>{{output}}</p>
 </body>
 </html>

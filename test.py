@@ -1,7 +1,3 @@
-from flask import Flask, render_template, request
-from azure.identity import ClientSecretCredential
-from azure.mgmt.media import AzureMediaServices
-import random
 from azure.mgmt.media.models import (
     IPRange,
     IPAccessControl,
@@ -15,9 +11,14 @@ from azure.mgmt.media.models import (
     LiveEventInputProtocol,
     StreamOptionsFlag
 )
+from azure.identity import ClientSecretCredential
+from azure.mgmt.media import AzureMediaServices
 
-app = Flask(__name__)
+import random
 
+# Get the environment variables
+
+# This sample uses the default Azure Credential object, which relies on the environment variable settings.
 # Tenant ID for your Azure Subscription
 TENANT_ID = "31091900-0d4d-423b-b04e-fe4201c763bd"
 
@@ -67,64 +68,8 @@ live_event_create=LiveEvent(
     stream_options=[StreamOptionsFlag.LOW_LATENCY]
 )
 
-@app.route("/")
-def hello_world():
-    return render_template("script.html")
 
-@app.route("/liveStart/")
 def main():
-
-    client = AzureMediaServices(
-        credential=ClientSecretCredential(TENANT_ID, CLIENT_ID, CLIENT_SECRET),
-        subscription_id="39c41e42-c205-40c1-b1bc-ef2eac9429b3",
-    )
-
-    response = client.live_events.begin_start(
-        resource_group_name=resource_group,
-        account_name=account_name,
-        live_event_name=live_event_name,
-    ).result()
-    output = str(response)
-
-    live_output_name = 'myOutput1'
-    response1 = client.live_outputs.begin_create(
-        resource_group_name=resource_group,
-        account_name=account_name,
-        live_event_name=live_event_name,
-        live_output_name=live_output_name,
-        parameters={
-            "properties": {
-                "archiveWindowLength": "PT5M",
-                "assetName": "myAsset1",
-                "description": "test live output 1",
-                "hls": {"fragmentsPerTsSegment": 5},
-                "manifestName": "testmanifest",
-                "rewindWindowLength": "PT4M",
-            }
-        },
-    ).result()
-    output1 = str(response1)
-    return render_template("script.html")
-    
-@app.route("/liveStop/")
-def stop():
-    
-    client = AzureMediaServices(
-        credential=ClientSecretCredential(TENANT_ID, CLIENT_ID, CLIENT_SECRET),
-        subscription_id="39c41e42-c205-40c1-b1bc-ef2eac9429b3",
-    )
-
-    response = client.live_events.begin_stop(
-        resource_group_name=resource_group,
-        account_name=account_name,
-        live_event_name=live_event_name,
-        parameters={"removeOutputsOnStop": True},
-    ).result()
-    output = str(response)
-    return render_template("script.html")
-
-@app.route('/liveCreate/')
-def liveCreate():
     client = AzureMediaServices(
     credential=ClientSecretCredential(TENANT_ID, CLIENT_ID, CLIENT_SECRET),
     subscription_id="39c41e42-c205-40c1-b1bc-ef2eac9429b3",
@@ -137,8 +82,10 @@ def liveCreate():
         parameters=live_event_create
     ).result()
     output3 = str(response3)
-    return (f"""<p>l'URL de l'ingestion est :</p> 
-                <p> rtmp://{live_event_name}-{account_name}-usea.channel.media.azure.net:1935/live/{accessToken} </p>""")
+    print("l'url de l'ingestion est :")
+    print(f"rtmp://{live_event_name}-{account_name}-usea.channel.media.azure.net:1935/live/{accessToken}")
+    print()
+    print(output3)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+if __name__ == "__main__":
+    main()
